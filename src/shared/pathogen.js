@@ -1,15 +1,14 @@
-import { Game } from 'phaser';
-import {V2,randInt, getVectorApex}        from '../shared/utility'
+import {V2, randInt, getVectorApex, VP_SIZE}        from '../shared/utility'
 
 export default class Pathogen
 {
     static MAX_PATHOGEN = 10;
-    static SPEED = 250;
+    static MAX_HP       = 13;
     static SPAWN_RADIUS = 100;
-    static MAX_HP = 13;
-    static SPIKE_COUNT = 12;
+    static SPIKE_COUNT  = 12;
     static SPIKE_ANGLE_STEP =  Math.PI * 2 / Pathogen.SPIKE_COUNT;
-    static Pathogens = [];
+    static SPEED        = 250;
+    static Pathogens    = [];
 
     constructor(scene)
     {
@@ -18,9 +17,8 @@ export default class Pathogen
         this.scene  = scene;
         this.hp     = Pathogen.MAX_HP;
         this.name   = 'container_pathogen_' + this.id
-        let VP_SIZE = scene.getVPSize()
         this.origin = V2(VP_SIZE.x /2 + randInt(0,Pathogen.SPAWN_RADIUS), VP_SIZE.y /2 + randInt(0,Pathogen.SPAWN_RADIUS));
-        this.pathogen_ent   = scene.add.image(30,30, 'virus');
+        this.pathogen_ent   = scene.add.image(30,30, 'virus_arrow');
         this.pathogen_ent.setOrigin(0.5,0.5)
         this.pathogen_ent.setData({'pathogen_instance': this, 'kill': this.kill, 'hp' : this.hp});
         this.slots  = 1;
@@ -64,19 +62,14 @@ export default class Pathogen
     delayedSpawn()
     {
         this.spawn_timer.remove();
-        Pathogen.Spawn(this.scene)
+        Pathogen.Spawn(this.scene);
     }
 
     kill ()
     {
-        if (this.id <Pathogen.Pathogens.length)
-        {
-            Pathogen.Pathogens.splice(this.id, 1)
-        }
+        if (this.id <Pathogen.Pathogens.length){Pathogen.Pathogens.splice(this.id, 1)}
         this.container.destroy()  
     }// kill
-
-    collide(o1, o2) {}
     
     static Spawn = (scene) =>
     {
