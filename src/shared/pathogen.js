@@ -17,7 +17,8 @@ export default class Pathogen
         this.scene  = scene;
         this.hp     = Pathogen.MAX_HP;
         this.name   = 'container_pathogen_' + this.id
-        this.origin = V2(VP_SIZE.x /2 + randInt(0,Pathogen.SPAWN_RADIUS), VP_SIZE.y /2 + randInt(0,Pathogen.SPAWN_RADIUS));
+        //this.origin = V2(VP_SIZE.x /2 + randInt(0,Pathogen.SPAWN_RADIUS), VP_SIZE.y /2 + randInt(0,Pathogen.SPAWN_RADIUS));
+        this.origin= V2(VP_SIZE.x /2 - 30,VP_SIZE.y /2 - 30)
         this.pathogen_ent   = scene.add.image(30,30, 'virus_arrow');
         this.pathogen_ent.setOrigin(0.5,0.5)
         this.pathogen_ent.setData({'pathogen_instance': this, 'kill': this.kill, 'hp' : this.hp});

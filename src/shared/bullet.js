@@ -12,20 +12,21 @@ export default class Bullet
     constructor(scene, fire_angle)
     {
         this.scene = scene;
-        this.fire_angle = fire_angle
+        let angle_offset =  Math.PI/2;
+        this.fire_angle = fire_angle + angle_offset;
         this.id = Bullet.Bullets.length;
         this.target = 'NONE';
         this.name = 'bullet_' + this.id;
         this.bullet_origin   = getVectorApex(Bullet.GUN_SIZE, fire_angle);
         this.bullet_velocity = getVectorApex(Bullet.FIRE_SPEED, fire_angle);
-        this.bullet_ent      = scene.createEnt(false, () => scene.add.sprite(scene.gun.ent.x + this.bullet_origin.x,
-                                                                             scene.gun.ent.y + this.bullet_origin.y,'Ab'), this.name);
-        this.bullet_ent.setData('bullet_instance', this);
-        this.bullet_ent.body.setVelocity(this.bullet_velocity.x, this.bullet_velocity.y);
-        this.bullet_ent.body.setMass(1)
-        this.bullet_ent.state = Bullet.STATES['FREE'];
+        this.ent             = scene.createEnt(false, () =>  scene.add.sprite(  scene.gun.ent.x + this.bullet_origin.x,
+                                                                                scene.gun.ent.y + this.bullet_origin.y,'Ab'), this.name);
+        this.ent.setData('bullet_instance', this);
+        this.ent.body.setVelocity(this.bullet_velocity.x, this.bullet_velocity.y);
+        this.ent.body.setMass(1)
+        this.ent.state = Bullet.STATES['FREE'];
         this.createColliders();
-        scene.tweens.add ({targets: this.bullet_ent, angle: Phaser.Math.RadToDeg(fire_angle + Math.PI / 2), duration: 5});
+        scene.tweens.add ({targets: this.ent, angle: Phaser.Math.RadToDeg(fire_angle + angle_offset), duration: 1});
 
         this.timer = scene.time.addEvent({  
             delay: 3500,
@@ -44,30 +45,29 @@ export default class Bullet
 
     kill()
     { 
-        console.log ('Bullet kill')
         this.timer.remove()
         if ( this.id < Bullet.Bullets.length ){ let supprEl = Bullet.Bullets.splice(this.id, 1) }
-        this.bullet_ent.destroy()  
+        this.ent.destroy()  
     }// kill
 
     createColliders()
     {
-        Pathogen.Pathogens.map ( (virus_instance) => {this.scene.physics.add.collider(this.bullet_ent, virus_instance.container, 
+        Pathogen.Pathogens.map ( (virus_instance) => {this.scene.physics.add.collider(this.ent, virus_instance.container, 
                                                                                       this.collide, null, this)})
     }
 
-    collide(bullet_entity, pathogen_container_entity)
+    collide(entity, pathogen_container_entity)
     {
-        if ( bullet_entity.state == Bullet.STATES['HOOKED'] )
+        if ( entity.state == Bullet.STATES['HOOKED'] )
             return;
     
         Pathogen.Pathogens.map( (instance) => 
         { 
             if (instance.name == pathogen_container_entity.name)
             {   
-                bullet_entity.state = Bullet.STATES['HOOKED'];
+                entity.state = Bullet.STATES['HOOKED'];
                 instance.onHit()
-                bullet_entity.state = Bullet.STATES['DEAD'];
+                entity.state = Bullet.STATES['DEAD'];
                 this.kill()
             }
         })

@@ -1,6 +1,17 @@
 // ASKIP FO FAIR UN NAMESPASS
+const DEBUG = true;
+const V2 = (x,y) => {return new Phaser.Math.Vector2(x,y)};
+const ASSET_SIZE =
+{
+    "gun": V2(55,55),
+    "Ab": V2(14,15),
+    "virus_arrow": V2(60,60),
+    "target_arrow": V2(30,60)
+}
+const VP_SIZE = V2(1200,900);
+const CARDINAL_POINTS = ['N', 'E', 'S', 'W'];
 
-const V2 = (x,y) => {return new Phaser.Math.Vector2(x,y)}
+
 
 const randInt = (min, max) =>
 {
@@ -9,19 +20,7 @@ const randInt = (min, max) =>
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const getVectorApex = (v_norm,a) =>
-{
-    return new Phaser.Math.Vector2(Math.cos(a) * v_norm,Math.sin(a) * v_norm);
-} // getVectorApex()
-
-const ASSET_SIZE =
-{
-    "gun": V2(64,64),
-    "Ab": V2(15,15),
-    "virus_arrow": V2(60,60),
-}
-
-const VP_SIZE = V2(1024,768);
+const getVectorApex = (v_norm,a) =>{return new Phaser.Math.Vector2(Math.cos(a) * v_norm,Math.sin(a) * v_norm);} // getVectorApex()
 
 const CardinalPointToVPPos = (cardinal, sprite_name) =>
 { 
@@ -35,10 +34,25 @@ const CardinalPointToVPPos = (cardinal, sprite_name) =>
     }
 }// CardinalPointToVPPos
 
+const CardinalPointToDeg = (cardinal) =>
+{
+    switch(cardinal)
+    {
+        case 'N' : return 180;
+        case 'S' : return 0;
+        case 'W' : return 90;
+        case 'E' : return -90;
+        default:   return 0;
+    }
+}
+
 
 exports.V2 = V2;
 exports.randInt = randInt;
 exports.getVectorApex = getVectorApex;
 exports.CardinalPointToVPPos = CardinalPointToVPPos;
+exports.CardinalPointToDeg = CardinalPointToDeg;
 exports.ASSET_SIZE = ASSET_SIZE;
 exports.VP_SIZE = VP_SIZE;
+exports.CARDINAL_POINTS = CARDINAL_POINTS;
+exports.DEBUG = DEBUG;

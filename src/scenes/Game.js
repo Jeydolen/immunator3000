@@ -1,6 +1,8 @@
-import Phaser               from 'phaser'
-import Pathogen             from '../shared/pathogen'
-import Gun                  from '../shared/gun'
+import Phaser               from 'phaser';
+import Pathogen             from '../shared/pathogen';
+import Gun                  from '../shared/gun';
+import Membrane             from '../shared/membrane';
+import { DEBUG } from '../shared/utility';
 
 export default class Game extends Phaser.Scene
 {
@@ -13,22 +15,26 @@ export default class Game extends Phaser.Scene
     preload()
     {
         this.load.setBaseURL('https://localhost:8000/');
-        this.load.image('gun',          'assets/cannon.png');
+        this.load.image('gun',          'assets/gun.png');
         this.load.image('Ab',           'assets/ab_bullet.png');
         this.load.image('virus_arrow',  'assets/virus_arrow.png');
-        this.load.image('target_arrow', 'assets/target_arrow.png');
+        this.load.image('target_arrow', 'assets/target_arrow_v2.png');
+        this.load.image('phospholipid', 'assets/phospholipid.png');
     } // preload()
 
     create()
     {
-        this.virus  = Pathogen.Spawn(this);
-        this.gun    = Gun.Create(this);
+        this.virus      = Pathogen.Spawn(this);
+        this.gun        = Gun.Create(this);
+        this.membrane   = Membrane.Create(this)
         this.input.on('pointerdown', this.gun.startFire, this.gun);
         this.input.on('pointerup',   this.gun.endFire,   this.gun);
         this.input.on(Phaser.Input.Events.POINTER_MOVE,this.gun.handlePointerMove, this.gun);
+        if (DEBUG)
+            this.text = this.add.text(30,30, 'DEBUG')
     } // create()
 
-    update(){ this.gun.update()} // update()
+    update(){if (DEBUG) this.text.text = "Math Fireangle " + Phaser.Math.RadToDeg(this.gun.FireAngle) }// update()
 
     createEnt(is_static, cb, name)
     {
