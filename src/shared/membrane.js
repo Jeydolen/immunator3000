@@ -11,7 +11,7 @@ export default class Membrane
         this.scene = scene;
         this.slot   = 0;
         this.spawnTargets();
-        this.drawLipids();
+        //this.drawLipids();
         //this.target = Target.Create(scene, 'S', 'target_' + Membrane.Targets.length)
     }
 

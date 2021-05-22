@@ -20,6 +20,8 @@ export default class Game extends Phaser.Scene
         this.load.image('virus_arrow',  'assets/virus_arrow.png');
         this.load.image('target_arrow', 'assets/target_arrow_v2.png');
         this.load.image('phospholipid', 'assets/phospholipid.png');
+        this.load.image("tileset",      "assets/tiles/tileset.png");
+        this.load.tilemapTiledJSON('map',"assets/tiles/map.json");
     } // preload()
 
     create()
@@ -32,6 +34,10 @@ export default class Game extends Phaser.Scene
         this.input.on(Phaser.Input.Events.POINTER_MOVE,this.gun.handlePointerMove, this.gun);
         if (DEBUG)
             this.text = this.add.text(30,30, 'DEBUG')
+
+        const map = this.make.tilemap({ key: "map", tileWidth: 30, tileHeight: 30});
+        const tileset = map.addTilesetImage("tileset","tiles");
+        const layer = map.createLayer("toplayer", tileset, 0, 0);
     } // create()
 
     update(){if (DEBUG) this.text.text = "Math Fireangle " + Phaser.Math.RadToDeg(this.gun.FireAngle) }// update()
