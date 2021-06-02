@@ -16,7 +16,9 @@ export default class Target
             Pathogen.Pathogens.map ((virus_instance) => {this.scene.physics.add.collider(this.ent, virus_instance.container, 
                 this.collide, null, this)})
         }
+
         this.scene.tweens.add ({targets: this.ent, angle: CardinalPointToDeg(cardinal_name), duration: 5});
+        this.ent.body.updateFromGameObject()
     }// contructor()
 
     static Create(scene, cardinal_name, id)

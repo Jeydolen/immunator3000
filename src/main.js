@@ -7,10 +7,11 @@ const config = {
     backgroundColor: '#552525',
     type: Phaser.AUTO,
     physics: {default: 'arcade', arcade: {gravity: {x:0, y: 0}, debug: false}},
-    disableContextMenu: true
+    disableContextMenu: true,
+    scale: {zoom: 1.0}
 }
-
-const game = new Phaser.Game(config)
-game.scene.add('titlescreen', TitleScreen)
-game.scene.add('game', Game)
-game.scene.start('game')
+  
+const game = new Phaser.Game(config);
+game.scene.add('titlescreen', TitleScreen);
+game.scene.add('game', Game);
+game.scene.start('game');

@@ -2,7 +2,7 @@ import Phaser               from 'phaser';
 import Pathogen             from '../shared/pathogen';
 import Gun                  from '../shared/gun';
 import Membrane             from '../shared/membrane';
-import { DEBUG } from '../shared/utility';
+import { DEBUG }            from '../shared/utility';
 
 export default class Game extends Phaser.Scene
 {
@@ -21,11 +21,16 @@ export default class Game extends Phaser.Scene
         this.load.image('target_arrow', 'assets/target_arrow_v2.png');
         this.load.image('phospholipid', 'assets/phospholipid.png');
         this.load.image("tileset",      "assets/tiles/tileset.png");
-        this.load.tilemapTiledJSON('map',"assets/tiles/map.json");
+        this.load.tilemapTiledJSON('map',"assets/tiles/map2.json");
     } // preload()
 
     create()
     {
+        const map       = this.make.tilemap({ key: "map"});
+        const tileset   = map.addTilesetImage("tileset","tileset");
+        const membraneLayer = map.createLayer("Membrane + cell", tileset)
+        //membraneLayer.setCollisionByProperty({collides : true})
+
         this.virus      = Pathogen.Spawn(this);
         this.gun        = Gun.Create(this);
         this.membrane   = Membrane.Create(this)
@@ -34,10 +39,6 @@ export default class Game extends Phaser.Scene
         this.input.on(Phaser.Input.Events.POINTER_MOVE,this.gun.handlePointerMove, this.gun);
         if (DEBUG)
             this.text = this.add.text(30,30, 'DEBUG')
-
-        const map = this.make.tilemap({ key: "map", tileWidth: 30, tileHeight: 30});
-        const tileset = map.addTilesetImage("tileset","tiles");
-        const layer = map.createLayer("toplayer", tileset, 0, 0);
     } // create()
 
     update(){if (DEBUG) this.text.text = "Math Fireangle " + Phaser.Math.RadToDeg(this.gun.FireAngle) }// update()

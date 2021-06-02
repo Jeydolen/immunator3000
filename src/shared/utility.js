@@ -28,8 +28,8 @@ const CardinalPointToVPPos = (cardinal, sprite_name) =>
     {
         case 'N' : return V2(VP_SIZE.x/2 - ASSET_SIZE[sprite_name].x/2,                ASSET_SIZE[sprite_name].y/2);
         case 'S' : return V2(VP_SIZE.x/2 - ASSET_SIZE[sprite_name].x/2,  VP_SIZE.y   - ASSET_SIZE[sprite_name].y/2);
-        case 'W' : return V2(              ASSET_SIZE[sprite_name].x/2,  VP_SIZE.y/2 - ASSET_SIZE[sprite_name].y/2);
-        case 'E' : return V2(VP_SIZE.x   - ASSET_SIZE[sprite_name].x/2,  VP_SIZE.y/2 - ASSET_SIZE[sprite_name].y/2);
+        case 'W' : return V2(              ASSET_SIZE[sprite_name].y/2,  VP_SIZE.y/2 - ASSET_SIZE[sprite_name].y/2);
+        case 'E' : return V2(VP_SIZE.x   - ASSET_SIZE[sprite_name].y/2,  VP_SIZE.y/2 - ASSET_SIZE[sprite_name].y/2);
         default:   return V2(0,0)
     }
 }// CardinalPointToVPPos
