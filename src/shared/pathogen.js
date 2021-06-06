@@ -19,19 +19,21 @@ export default class Pathogen
         this.name   = 'container_pathogen_' + this.id
         //this.origin = V2(VP_SIZE.x /2 + randInt(0,Pathogen.SPAWN_RADIUS), VP_SIZE.y /2 + randInt(0,Pathogen.SPAWN_RADIUS));
         this.origin= V2(VP_SIZE.x /2 - 30,VP_SIZE.y /2 - 30)
-        this.pathogen_ent   = scene.add.image(30,30, 'virus_arrow');
-        this.pathogen_ent.setOrigin(0.5,0.5)
-        this.pathogen_ent.setData({'pathogen_instance': this, 'kill': this.kill, 'hp' : this.hp});
+        this.ent   = scene.add.image(30,30, 'virus_arrow');
+        this.ent.setOrigin(0.5,0.5)
+        this.ent.setData({'pathogen_instance': this, 'kill': this.kill, 'hp' : this.hp});
         this.slots  = 1;
+        this.flashed = false;
         
         // THIS.CONTAINER
         this.container      = scene.add.container(this.origin.x, this.origin.y);
-        this.container.add(this.pathogen_ent);
+        this.container.add(this.ent);
         this.container.name = this.name
             // PHYSICS INIT FOR CONTAINER
             scene.physics.add.existing( this.container, false);
             this.container.body.setCollideWorldBounds(true, 1, 1);
             this.container.body.setMaxSpeed(50)
+            scene.physics.add.collider(this.container, scene.membraneLayer, this.onMembraneCollide, null, this)
             // PHYSICS INIT FOR CONTAINER
         // THIS.CONTAINER
         Pathogen.Pathogens.push(this);
@@ -40,8 +42,8 @@ export default class Pathogen
 
     onHit = () =>
     {
-        this.hp  = this.pathogen_ent.getData('hp') - 1;
-        this.pathogen_ent.setData('hp', this.hp);
+        this.hp  = this.ent.getData('hp') - 1;
+        this.ent.setData('hp', this.hp);
         this.slots += 1;
         let hook_angle = Pathogen.SPIKE_ANGLE_STEP * this.slots
         let spike_apex = getVectorApex(30, hook_angle);
@@ -59,6 +61,20 @@ export default class Pathogen
             });
         }
     }// onHit
+
+    onMembraneCollide = (virus_container_ent, membrane_layer) =>
+    {
+        this.timer1 = this.scene.time.addEvent({  
+            delay: 300,
+            callback: () => {
+                if (this.flashed)   this.ent.setTintFill(Phaser.Display.Color.GetColor(255, 255, 255))
+                else                this.ent.clearTint()
+                this.flashed = !    this.flashed
+            },
+            callbackScope: this,
+            repeat : 10
+        });
+    }
     
     delayedSpawn()
     {

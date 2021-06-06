@@ -26,11 +26,7 @@ export default class Game extends Phaser.Scene
 
     create()
     {
-        const map       = this.make.tilemap({ key: "map"});
-        const tileset   = map.addTilesetImage("tileset","tileset");
-        const membraneLayer = map.createLayer("Membrane + cell", tileset)
-        //membraneLayer.setCollisionByProperty({collides : true})
-
+        this.createMap();
         this.virus      = Pathogen.Spawn(this);
         this.gun        = Gun.Create(this);
         this.membrane   = Membrane.Create(this)
@@ -42,6 +38,15 @@ export default class Game extends Phaser.Scene
     } // create()
 
     update(){if (DEBUG) this.text.text = "Math Fireangle " + Phaser.Math.RadToDeg(this.gun.FireAngle) }// update()
+
+    createMap()
+    {
+        this.map_data           = this.make.tilemap({ key: "map"});
+        const tileset           = this.map_data.addTilesetImage("tileset","tileset");
+        this.membraneLayer      = this.map_data.createLayer("Membrane + cell", tileset)
+        this.membraneLayer.setCollisionByProperty({collide : true})
+
+    }
 
     createEnt(is_static, cb, name)
     {
