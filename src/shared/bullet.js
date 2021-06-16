@@ -54,6 +54,7 @@ export default class Bullet
     {
         Pathogen.Pathogens.map ( (virus_instance) => {this.scene.physics.add.collider(this.ent, virus_instance.container, 
                                                                                       this.collide, null, this)})
+        this.scene.physics.add.collider(this.ent, this.scene.membraneLayer)
     }
 
     collide(entity, pathogen_container_entity)

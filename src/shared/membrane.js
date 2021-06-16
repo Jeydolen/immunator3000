@@ -19,10 +19,9 @@ export default class Membrane
     spawnTargets()
     {
         CARDINAL_POINTS.map( (cardinal_name) => {
-            if (cardinal_name != this.scene.gun.ent.getData('cardinal'))
+            if (cardinal_name != this.scene.gun.ent.getData('cardinal') && cardinal_name.length == 1) 
                 this.target = Target.Create(this.scene, cardinal_name, 'target_' + Membrane.Targets.length);
             Membrane.Targets.push(this.target)
-            console.log('PUSHED')
         })
     }
 

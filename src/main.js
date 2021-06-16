@@ -8,7 +8,7 @@ const config = {
     type: Phaser.AUTO,
     physics: {default: 'arcade', arcade: {gravity: {x:0, y: 0}, debug: false}},
     disableContextMenu: true,
-    scale: {zoom: 1.0}
+    scale: {zoom: 1}
 }
   
 const game = new Phaser.Game(config);

@@ -2,7 +2,8 @@ import Phaser               from 'phaser';
 import Pathogen             from '../shared/pathogen';
 import Gun                  from '../shared/gun';
 import Membrane             from '../shared/membrane';
-import { DEBUG }            from '../shared/utility';
+import Map                  from '../shared/map';
+import { DEBUG, V2 }            from '../shared/utility';
 
 export default class Game extends Phaser.Scene
 {
@@ -33,8 +34,7 @@ export default class Game extends Phaser.Scene
         this.input.on('pointerdown', this.gun.startFire, this.gun);
         this.input.on('pointerup',   this.gun.endFire,   this.gun);
         this.input.on(Phaser.Input.Events.POINTER_MOVE,this.gun.handlePointerMove, this.gun);
-        if (DEBUG)
-            this.text = this.add.text(30,30, 'DEBUG')
+        if (DEBUG) this.text = this.add.text(30,30, 'DEBUG')
     } // create()
 
     update(){if (DEBUG) this.text.text = "Math Fireangle " + Phaser.Math.RadToDeg(this.gun.FireAngle) }// update()
@@ -43,9 +43,10 @@ export default class Game extends Phaser.Scene
     {
         this.map_data           = this.make.tilemap({ key: "map"});
         const tileset           = this.map_data.addTilesetImage("tileset","tileset");
+        this.map                = new Map(this.map_data);
+        this.map.getStructure()
         this.membraneLayer      = this.map_data.createLayer("Membrane + cell", tileset)
         this.membraneLayer.setCollisionByProperty({collide : true})
-
     }
 
     createEnt(is_static, cb, name)
