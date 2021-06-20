@@ -3,7 +3,8 @@ import Pathogen             from '../shared/pathogen';
 import Gun                  from '../shared/gun';
 import Membrane             from '../shared/membrane';
 import Map                  from '../shared/map';
-import { DEBUG, V2 }            from '../shared/utility';
+import {DEBUG, V2 }        from '../shared/utility';
+
 
 export default class Game extends Phaser.Scene
 {
@@ -28,7 +29,8 @@ export default class Game extends Phaser.Scene
     create()
     {
         this.createMap();
-        this.virus      = Pathogen.Spawn(this);
+        this.virus      = Pathogen.Spawn(this)
+
         this.gun        = Gun.Create(this);
         this.membrane   = Membrane.Create(this)
         this.input.on('pointerdown', this.gun.startFire, this.gun);

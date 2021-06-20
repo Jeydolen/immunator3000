@@ -18,6 +18,7 @@ const randInt = (min, max) =>
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+
 const getVectorApex = (v_norm,a) =>{return new Phaser.Math.Vector2(Math.cos(a) * v_norm,Math.sin(a) * v_norm);} // getVectorApex()
 
 const CardinalPointToVPPos = (cardinal, sprite_name) =>

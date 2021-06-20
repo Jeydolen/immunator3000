@@ -1,6 +1,8 @@
 import {V2, ASSET_SIZE, getVectorApex}        from '../shared/utility'
+import Decorable                              from '../shared/decorable';
+import {FlashDecoration}  from '../shared/decoration';
 
-export default class Pathogen
+export default class Pathogen extends Decorable
 {
     static MAX_PATHOGEN     = 10;
     static MAX_HP           = 13;
@@ -12,6 +14,7 @@ export default class Pathogen
 
     constructor(scene, type_name = "virus_arrow")
     {
+        super(scene);
         this.id         = Pathogen.Pathogens.length;
         this.hook       = 'NONE'; 
         this.scene      = scene;
@@ -19,6 +22,8 @@ export default class Pathogen
         this.hp         = Pathogen.MAX_HP;
         this.name       = 'container_pathogen_' + this.id
         this.origin     = this.getSpawnPos();
+        // ITS A COUPLAGE
+        this.addDecoration(new FlashDecoration(this))
 
         this.ent        = scene.add.image(this.getSize().x,this.getSize().y, this.type_name);
         this.slots      = 1;
@@ -94,6 +99,8 @@ export default class Pathogen
 
     onMembraneCollide = (virus_container_ent, membrane_layer) =>
     {
+        this.execute()
+        /*
         this.timer1 = this.scene.time.addEvent({  
             delay: 300,
             callback: () => {
@@ -103,7 +110,7 @@ export default class Pathogen
             },
             callbackScope: this,
             repeat : 10
-        });
+        });*/
     }
     
     delayedSpawn()
