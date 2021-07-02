@@ -71,7 +71,7 @@ export default class Pathogen extends Decorable
         let crown = [];
     
         CARDINAL_POINTS.map( (cardinal_name) => {
-            if (cardinal_name != this.scene.gun.ent.getData('cardinal'))
+            if (cardinal_name != this.scene.player.gun.ent.getData('cardinal'))
             {
                 let vector = CardinalPointToVPPos(cardinal_name, this.type_name)
                 crown.push(V2(vector.x * radius, vector.y * radius))

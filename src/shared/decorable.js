@@ -5,15 +5,6 @@ export default class Decorable
 		this.decorations = []
 	}
 
-	addDecoration(decoration)
-	{
-		this.decorations.push(decoration)
-	}
-
-	execute(obj)
-	{
-       
-		this.decorations.map( (decoration) => { console.dir(decoration); decoration.execute(obj)})
-	}
-
+	addDecoration(decoration){this.decorations.push(decoration)}
+	execute(obj){this.decorations.map( (decoration) => {decoration.execute(obj)})}
 }

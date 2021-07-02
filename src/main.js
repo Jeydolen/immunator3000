@@ -6,7 +6,7 @@ const config = {
     height: 900,
     backgroundColor: '#552525',
     type: Phaser.AUTO,
-    physics: {default: 'arcade', arcade: {gravity: {x:0, y: 0}, debug: false}},
+    physics: {default: 'arcade', arcade: {gravity: {x:0, y: 0}, debug: true}},
     disableContextMenu: true,
     scale: {zoom: 1}
 }

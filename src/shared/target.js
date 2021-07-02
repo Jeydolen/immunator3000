@@ -6,20 +6,28 @@ export default class Target
     constructor(scene, cardinal_name, id)
     {
         this.scene  = scene;
-        this.origin = CardinalPointToVPPos(cardinal_name, 'target_arrow');
+        this.setCardinal(cardinal_name, 'target_arrow')
         this.id  = id;
-        this.ent = scene.createEnt(true, () => scene.add.sprite(this.origin.x, this.origin.y, 'target_arrow'), this.id);
-        this.ent.setData({pattern: 'arrow'});
+        
+        this.ent.setData({pattern: 'arrow', cardinal : this.cardinal});
 
-        if (Pathogen.Pathogens.length != 0)
-        {
-            Pathogen.Pathogens.map ((virus_instance) => {this.scene.physics.add.collider(this.ent, virus_instance.container, 
-                this.collide, null, this)})
-        }
+        if(Pathogen.Pathogens.length != 0){Pathogen.Pathogens.map((virus_instance) => {this.scene.physics.add.collider(this.ent,virus_instance.container,this.collide,null,this)})}
 
         this.scene.tweens.add ({targets: this.ent, angle: CardinalPointToDeg(cardinal_name), duration: 5});
-        this.ent.body.updateFromGameObject()
     }// contructor()
+
+    setCardinal(cardinal_name, sn) 
+    {
+        this.origin = CardinalPointToVPPos(cardinal_name, sn);
+        this.cardinal = cardinal_name;
+        if(this.ent == undefined)  {this.ent = this.scene.createEnt(true, () => this.scene.add.sprite(this.origin.x, this.origin.y, sn), this.id);}
+        else
+        {
+            this.ent.x =  this.origin.x
+            this.ent.y = this.origin.y
+            this.ent.body.updateFromGameObject()
+        } 
+    }
 
     static Create(scene, cardinal_name, id)
     {

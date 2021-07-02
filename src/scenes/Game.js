@@ -1,6 +1,6 @@
 import Phaser               from 'phaser';
 import Pathogen             from '../shared/pathogen';
-import Gun                  from '../shared/gun';
+import Player               from '../shared/player';
 import Membrane             from '../shared/membrane';
 import Map                  from '../shared/map';
 import {DEBUG, V2 }        from '../shared/utility';
@@ -22,31 +22,30 @@ export default class Game extends Phaser.Scene
         this.load.image('virus_arrow',  'assets/virus_arrow.png');
         this.load.image('target_arrow', 'assets/target_arrow_v2.png');
         this.load.image('phospholipid', 'assets/phospholipid.png');
-        this.load.image("tileset",      "assets/tiles/tileset.png");
-        this.load.tilemapTiledJSON('map',"assets/tiles/map2.json");
+        this.load.image("tileset",      'assets/tiles/tileset.png');
+        this.load.tilemapTiledJSON('map','assets/tiles/map2.json');
     } // preload()
 
     create()
     {
         this.createMap();
-        this.virus      = Pathogen.Spawn(this)
-
-        this.gun        = Gun.Create(this);
-        this.membrane   = Membrane.Create(this)
-        this.input.on('pointerdown', this.gun.startFire, this.gun);
-        this.input.on('pointerup',   this.gun.endFire,   this.gun);
-        this.input.on(Phaser.Input.Events.POINTER_MOVE,this.gun.handlePointerMove, this.gun);
+        this.virus      = Pathogen.Spawn(this);
+        this.membrane   = Membrane.Create(this);
+        this.player     = Player.Create(this);
+        this.input.on('pointerdown', this.player.gun.startFire, this.player.gun);
+        this.input.on('pointerup',   this.player.gun.endFire,   this.player.gun);
+        this.input.on(Phaser.Input.Events.POINTER_MOVE,this.player.gun.handlePointerMove, this.player.gun);
+        this.input.keyboard.on('keydown', this.player.onKeyDown, this.player);
         if (DEBUG) this.text = this.add.text(30,30, 'DEBUG')
     } // create()
 
-    update(){if (DEBUG) this.text.text = "Math Fireangle " + Phaser.Math.RadToDeg(this.gun.FireAngle) }// update()
+    update(){if (DEBUG) this.text.text = "Math Fireangle " + Phaser.Math.RadToDeg(this.player.gun.FireAngle) }// update()
 
     createMap()
     {
         this.map_data           = this.make.tilemap({ key: "map"});
         const tileset           = this.map_data.addTilesetImage("tileset","tileset");
         this.map                = new Map(this.map_data);
-        this.map.getStructure()
         this.membraneLayer      = this.map_data.createLayer("Membrane + cell", tileset)
         this.membraneLayer.setCollisionByProperty({collide : true})
     }

@@ -19,8 +19,8 @@ export default class Bullet
         this.name = 'bullet_' + this.id;
         this.bullet_origin   = getVectorApex(Bullet.GUN_SIZE, fire_angle);
         this.bullet_velocity = getVectorApex(Bullet.FIRE_SPEED, fire_angle);
-        this.ent             = scene.createEnt(false, () =>  scene.add.sprite(  scene.gun.ent.x + this.bullet_origin.x,
-                                                                                scene.gun.ent.y + this.bullet_origin.y,'Ab'), this.name);
+        this.ent             = scene.createEnt(false, () =>  scene.add.sprite(  scene.player.gun.ent.x + this.bullet_origin.x,
+                                                                                scene.player.gun.ent.y + this.bullet_origin.y,'Ab'), this.name);
         this.ent.setData('bullet_instance', this);
         this.ent.body.setVelocity(this.bullet_velocity.x, this.bullet_velocity.y);
         this.ent.body.setMass(1)
