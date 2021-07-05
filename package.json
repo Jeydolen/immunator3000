@@ -5,7 +5,7 @@
   "main": "game.js",
   "scripts": {
     "start": "parcel index.html -p 8000 --https",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./src/shared/unit_test.js"
   },
   "author": "",
   "license": "ISC",

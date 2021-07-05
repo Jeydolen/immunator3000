@@ -1,5 +1,5 @@
 import Pathogen             from '../shared/pathogen';
-import {getVectorApex}      from '../shared/utility';
+import { getVectorApex }    from '../shared/utility';
 
 export default class Bullet
 {

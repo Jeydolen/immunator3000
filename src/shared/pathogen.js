@@ -1,6 +1,6 @@
-import {V2, ASSET_SIZE, getVectorApex}        from '../shared/utility'
-import Decorable                              from '../shared/decorable';
-import {FlashDecoration}  from '../shared/decoration';
+import { V2, ASSET_SIZE, getVectorApex }         from '../shared/utility'
+import Decorable                                 from '../shared/decorable';
+import { FlashDecoration }                       from '../shared/decoration';
 
 export default class Pathogen extends Decorable
 {

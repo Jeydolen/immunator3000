@@ -1,15 +1,18 @@
 // ASKIP FO FAIR UN NAMESPASS
 const DEBUG = true;
 const V2 = (x,y) => {return new Phaser.Math.Vector2(x,y)};
+
+const TILE_SIZE = 30;
+
 const ASSET_SIZE =
 {
     "gun": V2(55,55),
     "Ab": V2(7,8),
-    "virus_arrow": V2(30,30),
-    "target_arrow": V2(30,60)
+    "virus_arrow": V2(TILE_SIZE,TILE_SIZE),
+    "target_arrow": V2(TILE_SIZE, 2*TILE_SIZE)
 }
 const VP_SIZE = V2(1200,900);
-const CARDINAL_POINTS = ['N', 'E', 'S', 'W','NE','NW','SE','SW'];
+
 
 const randInt = (min, max) =>
 {
@@ -18,9 +21,9 @@ const randInt = (min, max) =>
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-
-
 const getVectorApex = (v_norm,a) =>{return new Phaser.Math.Vector2(Math.cos(a) * v_norm,Math.sin(a) * v_norm);} // getVectorApex()
+
+const CARDINAL_POINTS = ['N', 'E', 'S', 'W','NE','NW','SE','SW'];
 
 const CardinalPointToVPPos = (cardinal, sprite_name) =>
 { 
@@ -61,6 +64,7 @@ exports.randInt = randInt;
 exports.getVectorApex = getVectorApex;
 exports.CardinalPointToVPPos = CardinalPointToVPPos;
 exports.CardinalPointToDeg = CardinalPointToDeg;
+exports.TILE_SIZE = TILE_SIZE;
 exports.ASSET_SIZE = ASSET_SIZE;
 exports.VP_SIZE = VP_SIZE;
 exports.CARDINAL_POINTS = CARDINAL_POINTS;
