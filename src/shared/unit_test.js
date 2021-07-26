@@ -1,7 +1,6 @@
-import assert from 'assert';
-import APP_ROOT_PATH from 'app-root-path';
+//import path from 'path';
 
-export default UnitTest = class
+export default class UnitTest
 {
 	static REGISTERED_CLASSES = []
 	constructor(arg) {console.log(arg); UnitTest.REGISTERED_CLASSES.push(arg) } // constructor()
@@ -10,11 +9,13 @@ export default UnitTest = class
 
 	static Run(klass)
 	{
-		//UnitTest.REGISTERED_CLASSES.map( (klass) => new klass.test())
-		import(`file://${APP_ROOT_PATH.path}/src/shared/config/unit_test.json`).then((json) => {
+		let ut_path = './config/unit_test.json';
+		let k_path = './'
+		console.log(ut_path)
+		import(`${ut_path}`).then((json) => {
 			let klasses = json.default;
 			klasses.map( async (klass) => { 
-				let k = import(`file://${APP_ROOT_PATH.path}/src/shared/${klass}`).then((k) => { console.dir(k); assert(k.default.Test()) }).catch( (e) => console.error(e)); 
+				let k = import(`${k_path}/${klass}`).then((k) => { console.dir(k); k.default.Test(); }).catch( (e) => console.error(e)); 
 			});
 		}).catch((e) => console.error(e));
 	} // Run()

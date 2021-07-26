@@ -1,5 +1,4 @@
-import APP_ROOT_PATH from 'app-root-path';
-let utility = import(`file:\\\\${APP_ROOT_PATH.path}\\src\\shared\\utility.js`).catch((e) => console.error(e)) //{ TILE_SIZE, CARDINAL_POINTS, CardinalPointToDeg, getVectorApex }
+import{ TILE_SIZE, CARDINAL_POINTS, CardinalPointToDeg, getVectorApex } from '../utility.js'
 
 export default class Sonar
 {

@@ -17,7 +17,7 @@ export default class DebugScene extends Phaser.Scene
 
     preload()
     {
-        this.load.setBaseURL('https://localhost:8000/');
+        this.load.setBaseURL('https://localhost:9000/');
         this.load.image('gun',          'assets/gun.png');
         this.load.image('Ab',           'assets/ab_bullet.png');
         this.load.image('virus_arrow',  'assets/virus_arrow.png');
