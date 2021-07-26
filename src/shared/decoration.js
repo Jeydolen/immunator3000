@@ -4,7 +4,7 @@ export default class Decoration
 	execute(obj){}
 }
 
-class FlashDecoration extends Decoration
+export class FlashDecoration extends Decoration
 {
 	constructor(obj)
 	{
@@ -27,5 +27,3 @@ class FlashDecoration extends Decoration
 		})
 	}
 }
-
-exports.FlashDecoration = FlashDecoration;

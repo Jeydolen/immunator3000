@@ -16,14 +16,14 @@ export default class Game extends Phaser.Scene
 
     preload()
     {
-        this.load.setBaseURL('https://localhost:8000/');
-        this.load.image('gun',          'assets/gun.png');
-        this.load.image('Ab',           'assets/ab_bullet.png');
-        this.load.image('virus_arrow',  'assets/virus_arrow.png');
-        this.load.image('target_arrow', 'assets/target_arrow_v2.png');
-        this.load.image('phospholipid', 'assets/phospholipid.png');
-        this.load.image("tileset",      'assets/tiles/tileset.png');
-        this.load.tilemapTiledJSON('map','assets/tiles/map2.json');
+        this.load.setBaseURL('https://localhost:9000/');
+        this.load.image('gun',           'assets/gun.png');
+        this.load.image('Ab',            'assets/ab_bullet.png');
+        this.load.image('virus_arrow',   'assets/virus_arrow.png');
+        this.load.image('target_arrow',  'assets/target_arrow_v2.png');
+        this.load.image('phospholipid',  'assets/phospholipid.png');
+        this.load.image("tileset",       'assets/tiles/tileset.png');
+        this.load.tilemapTiledJSON('map','assets/tiles/debug_map.json');
     } // preload()
 
     create()
